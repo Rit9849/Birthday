@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎂 Happy Birthday</title>
+  <!-- Retro 8-bit Pixel Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <style>
+    /* General reset */
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    /* Sections (pages) */
+    .section {
+      display: none;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* ---------------- PAGE 1 ---------------- */
+    #page1 {
+      background: black;
+      color: pink;
+    }
+    #matrix {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    #page1 .content {
+      position: relative;
+      z-index: 1;
+      top: 40%;
+      transform: translateY(-40%);
+    }
+    #page1 h1 {
+      font-size: 22px;
+      color: pink;
+      text-shadow: 0 0 5px hotpink,
+                   0 0 10px deeppink,
+                   0 0 20px fuchsia,
+                   0 0 40px pink;
+    }
+    #page1 button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: black;
+      border: 2px solid pink;
+      color: pink;
+      cursor: pointer;
+      text-shadow: 0 0 5px hotpink, 0 0 10px deeppink;
+      box-shadow: 0 0 10px pink, 0 0 20px deeppink inset;
+    }
+
+    /* ---------------- PAGE 2 ---------------- */
+    #page2 { background: pink; }
+    #page2 img.corner {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+    }
+    #tl { top: 0; left: 0; }
+    #tr { top: 0; right: 0; }
+    #bl { bottom: 0; left: 0; }
+    #br { bottom: 0; right: 0; }
+
+    #centerSticker {
+      width: 250px;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.1); }
+    }
+    #page2 button {
+      position: absolute;
+      top: 80%; left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background: black;
+      border: 2px solid pink;
+      color: pink;
+      cursor: pointer;
+      text-shadow: 0 0 5px hotpink, 0 0 10px deeppink;
+      box-shadow: 0 0 10px pink, 0 0 20px deeppink inset;
+    }
+
+    /* ---------------- PAGE 3 ---------------- */
+    #page3 {
+      background: #001133;
+      color: white;
+      overflow: hidden;
+    }
+    .stars, .moon { position: absolute; border-radius: 50%; }
+    .stars {
+      width: 2px; height: 2px;
+      background: white;
+      box-shadow: 20px 30px white, 50px 80px white, 200px 120px white,
+                  400px 200px white, 600px 150px white, 800px 250px white;
+    }
+    .moon {
+      width: 100px; height: 100px;
+      background: #eee;
+      top: 40px; right: 60px;
+      box-shadow: 0 0 20px white;
+    }
+
+    /* Diary */
+    #diary {
+      width: 400px;
+      height: 250px;
+      background: #fdf6e3;
+      margin: 150px auto;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .page {
+      width: 100%; height: 100%;
+      background: #fff;
+      position: absolute;
+      top: 0; left: 0;
+      transform-origin: left;
+      transition: transform 1s;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+      padding: 20px;
+      box-sizing: border-box;
+      color: #111; /* diary text stays dark */
+    }
+    .flipped { transform: rotateY(-180deg); }
+
+    /* Buttons on page 3 */
+    #theEndBtn, #okByeBtn {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: black;
+      border: 2px solid pink;
+      color: pink;
+      cursor: pointer;
+      text-shadow: 0 0 5px hotpink, 0 0 10px deeppink;
+      box-shadow: 0 0 10px pink, 0 0 20px deeppink inset;
+    }
+    #finalText {
+      display: none;
+      color: pink;
+      margin-top: 20px;
+      text-shadow: 0 0 5px hotpink,
+                   0 0 10px deeppink,
+                   0 0 20px fuchsia;
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1" class="section" style="display:block;">
+  <canvas id="matrix"></canvas>
+  <div class="content">
+    <h1>Happy Birthday 🎂</h1>
+    <button onclick="showPage(2)">(age jane ke leye ye Dbaye)</button>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="section">
+  <!-- Anime Birthday GIF -->
+  <img src="https://i.postimg.cc/zGCFZmjy/anime.gif" class="corner" id="tl">
+
+  <!-- Anya Birthday GIF -->
+  <img src="https://i.postimg.cc/Y96vjkvF/happy-birthday-anya.gif" class="corner" id="tr">
+
+  <!-- Jujutsu Kaisen GIF -->
+  <img src="https://i.postimg.cc/cJYH5ZMz/jujutsu-kaisen.gif" class="corner" id="bl">
+
+  <!-- Pokémon Birthday GIF -->
+  <img src="https://i.postimg.cc/9QwFrVSf/pokemon-happy-birthday.gif" class="corner" id="br">
+
+  <!-- Okji Sticker -->
+  <img src="https://i.postimg.cc/LX6cg3XV/okij.png" id="centerSticker">
+
+  <button onclick="showPage(3)">Click Here</button>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="section">
+  <div class="stars"></div>
+  <div class="moon"></div>
+
+  <!-- Diary -->
+  <div id="diary">
+    <div class="page" id="pageFront">
+      <h3>Click Diary to Open</h3>
+    </div>
+    <div class="page" id="pageBack">
+      <p>Happy Birthday to you Shaiana ji.  
+         Yrr age bnane ka mn nhi kiya so sry 😅  
+         Happy Birthday 🎉 Love you my friend 💖</p>
+    </div>
+  </div>
+
+  <!-- Buttons + Messages -->
+  <button id="theEndBtn" onclick="moveEndBtn()">The End</button>
+  <div id="finalText">badi jaldi hai</div>
+  <button id="okByeBtn" onclick="closeTab()">Ok Bye</button>
+</div>
+
+<script>
+/* Switch between sections */
+function showPage(n){
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.getElementById('page' + n).style.display = 'block';
+}
+
+/* Matrix Effect on Page 1 */
+const c = document.getElementById("matrix"), ctx = c.getContext("2d");
+c.height = window.innerHeight;
+c.width = window.innerWidth;
+const chars = "01あアピンクハッピーバースデー";
+const drops = Array(Math.floor(c.width / 20)).fill(1);
+
+function drawMatrix(){
+  ctx.fillStyle = "rgba(0,0,0,0.1)";
+  ctx.fillRect(0, 0, c.width, c.height);
+  ctx.fillStyle = "pink";
+  ctx.shadowColor = "deeppink";
+  ctx.shadowBlur = 20;
+  ctx.font = "15px monospace";
+
+  for(let i=0; i<drops.length; i++){
+    const text = chars[Math.floor(Math.random() * chars.length)];
+    ctx.fillText(text, i*20, drops[i]*20);
+    if(drops[i]*20 > c.height && Math.random() > 0.975) drops[i] = 0;
+    drops[i]++;
+  }
+}
+setInterval(drawMatrix, 80);
+
+/* Diary Flip Logic */
+let diary = document.getElementById("diary");
+let front = document.getElementById("pageFront");
+let flipped = false, clicks = 0;
+
+diary.addEventListener("click", () => {
+  if(!flipped){
+    front.classList.add("flipped");
+    flipped = true;
+    playFlipSound();
+  } else {
+    diary.style.display = "none";
+    setTimeout(() => {
+      document.getElementById("theEndBtn").style.display = "inline-block";
+    }, 3000);
+  }
+});
+
+function playFlipSound(){
+  let audio = new Audio("https://www.soundjay.com/switch/sounds/switch-3.mp3");
+  audio.play();
+}
+
+/* The End Button Trick */
+function moveEndBtn(){
+  clicks++;
+  let btn = document.getElementById("theEndBtn");
+  btn.style.position = "absolute";
+  btn.style.left = Math.random() * 70 + "%";
+  btn.style.top = Math.random() * 70 + "%";
+
+  if(clicks >= 3){
+    btn.style.display = "none";
+    document.getElementById("finalText").style.display = "block";
+    document.getElementById("okByeBtn").style.display = "inline-block";
+  }
+}
+
+/* Close tab at the end */
+function closeTab(){ window.close(); }
+</script>
+</body>
+</html>
